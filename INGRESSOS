@@ -1,0 +1,18 @@
+#include <stdio.h>//biblioteca
+
+int main(){//classe principal 
+	
+	const float preco_ingresso = 30.00;//const
+	
+	int quantidade;//declarando uma variavel do tipo inteiro
+	float total; //declarando uma variavel tipo float, decimal 
+	
+	printf("Digite a quantidade de ingressos desejado:");//imprime uma mensagem na tela
+	scanf("%d", &quantidade);//captura uma vriavel
+	
+	total = quantidade * preco_ingresso; //calculo
+	
+	printf("O valor total da compra e: R$ %.2f \n", total);//imprime uma mensagem na tela
+	
+	return 0;//fim do programa
+}
