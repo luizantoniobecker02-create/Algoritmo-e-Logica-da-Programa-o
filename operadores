@@ -1,0 +1,40 @@
+#include <stdio.h>//biblioteca
+
+int main(){//classe principal 
+//---------------------------------------------------------
+//1. precedencia de operadores
+//---------------------------------------------------------
+//a multiplacao (*) tem precedencia maior que a adiçao (+)
+int res_precedencia = 5 + 3 * 2; //equivalente a 5+6 = 11
+printf("1.Precedencia (5 + 3 * 2= %d\n)", res_precedencia);
+
+//o uso de parenteses altera essa ordem, pois possuem prioridade maxima
+int res_parenteses = (5 + 3) * 2;//equivale a 8 * 2 = 16
+printf("Com parenteses ((5 + 3) * 2) = %d\n", res_parenteses);
+
+//---------------------------------------------------------
+//2. Modeladores de tipos (casting explicito)
+//---------------------------------------------------------
+int a = 5, b = 2;
+
+//divisao inteira: o resultado descarta a parte fracionaria (resulta em 2)
+float div_inteira = a / b;
+printf("\n2. Divisao inteira (5 / 2) = %.2f\n", div_inteira);
+
+//conversao explicita: transforma 'a' em float temporariamente para obter a precisao decimal
+float div_com_cast = (float)a / b;
+printf("Divisao com cast ((float)5 / 2)= %.2f\n", div_com_cast);
+
+//----------------------------------------------------------
+//3.operador virgula (,)
+//----------------------------------------------------------
+//o operador virgula avalia todas as expressoes da esquerda
+int x;
+x = (printf("\n3. Executando dentro do operador virgula...\n"), 10 + 20);
+
+//o printf foi executado e 'x' recebeu o valor de 30
+printf("Valor final armazenado em x = %d\n", x);
+
+return 0;
+
+}
