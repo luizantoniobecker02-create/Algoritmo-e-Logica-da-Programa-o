@@ -1,0 +1,17 @@
+#include<stdio.h>//biblioteca
+
+int main(){//principal
+	
+	const float cotacao_dolar = 5.11;//const, nao pode ser alterado
+	float reais, dolares;//declarando uma variavel
+	
+	printf("Digite o valor em reais (R$):");//imprime uma mensagem 
+	
+	scanf("%f", &reais);//captura a variavel
+	
+	dolares = reais / cotacao_dolar;//cotacao do dolar do dia
+	
+	printf("O valor equivalente em dolares e: US$ %.2f \n", dolares);//imprime uma mensagem 
+	
+	return 0;//fim do programa 
+}
