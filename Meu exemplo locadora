@@ -1,0 +1,17 @@
+#include <stdio.h>//Biblioteca
+
+int main() {//Classe principal
+    int idade;//Declarando uma variavel
+
+    printf("Se deseja alugar um carro, primeiro digite sua idade: ");//Mostra uma mensagem na tela 
+    scanf("%d", &idade);//Captura uma variavel
+
+    if (idade >= 18) {//Se a pessoa for maior de idade
+        printf("Que legal, voce ja pode alugar um carro!\n");//Mostra uma mensagem na tela 
+        
+    } else {//Se nao a pessoa e menor de idade
+        printf("Infelizmente voce nao pode alugar um carro devido sua idade nao permitida.\n");//Mostra uma mensagem na tela
+    }
+
+    return 0;//Fim do programa 
+}
