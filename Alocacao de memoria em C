@@ -17,7 +17,7 @@ int main() {
 
 	//ira alocar dinamicamente a memoria dos dois registros iniciais 
     registros = (struct Registro *) calloc(N, sizeof(struct Registro));
-    //(calloc) reserva memória e inicializa os bytes com zero.
+    //(calloc) reserva memÃ³ria e inicializa os bytes com zero.
     //N(2) quantidade de elementos que queremos guardar 
     //SIZEOF calcula o tamanho de cada elemento 
 
@@ -31,14 +31,14 @@ int main() {
     for (int i = 0; i < N; i++) {
         registros[i].id = i + 1;
         registros[i].valor = (i + 1) * 10;
-        //A cada repetição, atribui um ID e calcula o valor do registro
+        //A cada repetiÃ§Ã£o, atribui um ID e calcula o valor do registro
     }
 
     //Alocacao temporaria com malloc
     struct Registro *extras;
 
     extras = (struct Registro *) malloc(M * sizeof(struct Registro));
-	//(malloc) - reserva memória sem inicializar o conteúdo.
+	//(malloc) - reserva memÃ³ria sem inicializar o conteÃºdo.
 	
     if (extras == NULL) {
         printf("Erro na alocacao dos registros extras!\n");
