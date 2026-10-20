@@ -1,25 +1,32 @@
+
 #include <stdio.h>
 #include <stdlib.h>//biblioteca responsavel pelo gerenciamento de memoria 
+
+//malloc() — aloca memória sem inicializar os valores.
+//calloc() — aloca memória e inicializa os bytes com zero.
+//realloc() — altera o tamanho de uma memória já alocada.
+//free() — libera a memória reservada.
 
 struct Registro {
     int id;//guarda o numero de identificacao do registro
     int valor;// guarda o valor associado a esse registro 
 };
 
-//controlam a quantidade de registros 
 int main() {
+	//controlam a quantidade de registros
     int N = 2;//representa os registros iniciais
     int M = 5;//representa os registros extras
     int T = 7;//determina o tamanho final desejado do vetor
+    int i;
 
-    //Alocacao inicial com calloc
     struct Registro *registros;
 
-	//ira alocar dinamicamente a memoria dos dois registros iniciais 
-    registros = (struct Registro *) calloc(N, sizeof(struct Registro));
+    // Alocacao inicial com calloc
+    //ira alocar dinamicamente a memoria dos dois registros iniciais 
+    registros = calloc(N, sizeof(struct Registro));
     //(calloc) reserva memória e inicializa os bytes com zero.
     //N(2) quantidade de elementos que queremos guardar 
-    //SIZEOF calcula o tamanho de cada elemento 
+    //SIZEOF calcula o tamanho de cada elemento
 
     if (registros == NULL) {
         printf("Erro na alocacao inicial de memoria!\n");
@@ -28,18 +35,23 @@ int main() {
     }
 
     // Preenchimento dos registros iniciais
-    for (int i = 0; i < N; i++) {
-        registros[i].id = i + 1;
-        registros[i].valor = (i + 1) * 10;
-        //A cada repetição, atribui um ID e calcula o valor do registro
+    printf("\n--- Registros iniciais ---\n");
+
+    for (i = 0; i < N; i++) {
+        printf("\nDigite o ID do registro %d: ", i + 1);
+        scanf("%d", &registros[i].id);
+
+        printf("Digite o valor do registro %d: ", i + 1);
+        scanf("%d", &registros[i].valor);
+        //A cada repetição, atribui um ID e calcula o valor do registro, o índice começa em zero e percorre as posições do vetor.
     }
 
-    //Alocacao temporaria com malloc
     struct Registro *extras;
 
-    extras = (struct Registro *) malloc(M * sizeof(struct Registro));
-	//(malloc) - reserva memória sem inicializar o conteúdo.
-	
+    // Alocacao temporaria com malloc
+    extras = malloc(M * sizeof(struct Registro));
+    //(malloc) - o malloc reserva espaço para M registros extras, mas não inicializa o conteúdo da memória.
+
     if (extras == NULL) {
         printf("Erro na alocacao dos registros extras!\n");
         free(registros);
@@ -47,16 +59,23 @@ int main() {
     }
 
     // Preenchimento dos registros extras
-    for (int i = 0; i < M; i++) {
-        extras[i].id = N + i + 1;
-        extras[i].valor = (i + 1) * 100;
+    printf("\n--- Registros extras ---\n");
+
+    for (i = 0; i < M; i++) {
+        printf("\nDigite o ID do registro extra %d: ", i + 1);
+        scanf("%d", &extras[i].id);
+
+        printf("Digite o valor do registro extra %d: ", i + 1);
+        scanf("%d", &extras[i].valor);
     }
 
-    // Expande o vetor principal para receber os registros extras
+    //Expande o vetor principal para receber os registros extras
     struct Registro *temporario;
 
-    temporario = (struct Registro *) realloc(
-        registros, (N + M) * sizeof(struct Registro)
+    temporario = realloc(
+        registros, T * sizeof(struct Registro)
+        //realloc aumenta o valor principal (2), que antes comportava dois registros, para comportar sete (+ M) 
+		//o resultado e guardado em temporario para verificar se a operação foi bem-sucedida. Se funcionar, atualiza o ponteiro registros.
     );
 
     if (temporario == NULL) {
@@ -64,45 +83,35 @@ int main() {
         free(extras);
         free(registros);
         return 1;
+        // se a alocacao falhar, libera os dois blocos que ainda estao alocados
     }
 
     registros = temporario;
 
     // Copia os registros extras para o vetor principal
-    for (int i = 0; i < M; i++) {
+    for (i = 0; i < M; i++) {
         registros[N + i] = extras[i];
     }
 
     // Libera a memoria temporaria
     free(extras);
 
-    // Ajusta o tamanho final para T registros
-    temporario = (struct Registro *) realloc(
-        registros, T * sizeof(struct Registro)
-    );
+    // Exibe os registros cadastrados
+    printf("\n--- Conteudo final do vetor ---\n");
 
-    if (temporario == NULL) {
-        printf("Erro ao redimensionar o vetor!\n");
-        free(registros);
-        return 1;
+    for (i = 0; i < T; i++) {
+        printf(
+            "Registro %d | ID: %d | Valor: %d\n",
+            i + 1,
+            registros[i].id,
+            registros[i].valor
+        );
     }
 
-    registros = temporario;
-
-    // Exibe o conteudo final
-    printf("\nConteudo final do vetor:\n");
-
-	//percorre as 7 posicoes do vetor 
-    for (int i = 0; i < T; i++) {
-        printf("Registro %d | ID: %d | Valor: %d\n",
-               i + 1, registros[i].id, registros[i].valor);
-    }
-
-    //Por fim libera a memoria principal
+    // Libera a memoria principal
     free(registros);
 
     printf("\nMemoria liberada com sucesso!\n");
 
     return 0;
-} 
-
+}
